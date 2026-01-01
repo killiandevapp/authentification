@@ -2,75 +2,86 @@ name: CI
 
 on:
   push:
-    branches: [feature/authentification, main]
+    branches: ["**"]
   pull_request:
-    branches: [main]
 
 jobs:
-  backend:
-    name: Backend tests
+  test:
     runs-on: ubuntu-latest
 
     services:
       mysql:
-        image: mysql:8
-        ports:
-          - 3306:3306
+        image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: auth_test
+        ports:
+          - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h 127.0.0.1 -proot"
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=5
+          --health-retries=10
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            backend/package-lock.json
+            frontend/package-lock.json
 
-      - name: Install backend dependencies
+      # -------------------------
+      # DB: create + schema import
+      # -------------------------
+      - name: Wait for MySQL
+        run: |
+          for i in {1..30}; do
+            mysqladmin ping -h 127.0.0.1 -uroot -proot && break
+            sleep 2
+          done
+
+      - name: Create test database + import schema
+        run: |
+          mysql -h 127.0.0.1 -uroot -proot -e "CREATE DATABASE IF NOT EXISTS auth_test;"
+          mysql -h 127.0.0.1 -uroot -proot auth_test < backend/schema.sql
+
+      # -------------------------
+      # Backend
+      # -------------------------
+      - name: Install backend deps
         working-directory: backend
         run: npm ci
 
-      - name: Run backend tests
+      - name: Backend tests
         working-directory: backend
         env:
           NODE_ENV: test
+
           ACCESS_TOKEN_SECRET: test_access_secret
           REFRESH_TOKEN_SECRET: test_refresh_secret
+
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_USER: root
           DB_PASSWORD: root
           DB_NAME: auth_test
-          COOKIE_SECURE: false
+
+          COOKIE_SECURE: "false"
           COOKIE_SAMESITE: lax
         run: npm test
 
-  frontend:
-    name: Frontend tests
-    runs-on: ubuntu-latest
-    needs: backend
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install frontend dependencies
+      # -------------------------
+      # Frontend
+      # -------------------------
+      - name: Install frontend deps
         working-directory: frontend
         run: npm ci
 
-      - name: Run frontend tests
+      - name: Frontend tests
         working-directory: frontend
         run: npm test
