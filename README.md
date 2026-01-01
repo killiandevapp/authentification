@@ -1,3 +1,5 @@
+
+[![CI](https://github.com/killiandevapp/authentification/actions/workflows/ci.yml/badge.svg)](https://github.com/killiandevapp/authentification/actions/workflows/ci.yml)
 # Auth MVP – Application web
 
 Ce dépôt contient un MVP centré uniquement sur la gestion de l’authentification d’une application web.
