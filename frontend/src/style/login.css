@@ -1,3 +1,4 @@
+
 body {
     margin: 0;
     padding: 0;
@@ -12,23 +13,25 @@ body {
     background-color: #F5F5F5;
 }
 
-#sctLogin>div {
-    width: 40%;
-    height: 45%;
-    padding: 15px;
+#sctLogin > div {
+    width: 90%;
+    height: 70%; 
+    padding: 20px;
     border-radius: 5px;
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 15px; 
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    justify-content: center;
 }
+
 
 #ctnLoginGen form {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 100%; 
     gap: 15px;
     justify-content: center;
 }
@@ -40,10 +43,9 @@ body {
     font-weight: 600;
     border-style: none;
     border-radius: 40px;
-    padding: 10px;
+    padding: 12px; 
     width: 100%;
     cursor: pointer;
-
 }
 
 #sctLogin h1,
@@ -70,7 +72,6 @@ body {
 }
 
 .ctnInputLogin input {
-
     all: unset;
     display: block;
     box-sizing: border-box;
@@ -83,4 +84,36 @@ body {
     border: 1px solid #ccc;
     border-radius: 4px;
     color: #333;
+}
+
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    #sctLogin > div {
+        width: 60%;
+        height: 60%;
+        padding: 25px;
+        gap: 20px;
+    }
+    
+    #ctnLoginGen form {
+        width: 70%;
+    }
+    
+    #sctLogin h2 {
+        font-size: 1.1rem;
+    }
+}
+
+
+@media (min-width: 1024px) {
+    #sctLogin > div {
+        width: 40%;
+        height: 45%;
+        padding: 15px;
+        gap: 20px;
+    }
+    
+    #ctnLoginGen form {
+        width: 50%;
+    }
 }
