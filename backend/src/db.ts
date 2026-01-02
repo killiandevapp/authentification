@@ -1,5 +1,5 @@
-import mysql, { PoolOptions } from "mysql2/promise";
-
+import mysql from "mysql2/promise";
+import type {PoolOptions} from "mysql2/promise";
 // Variables d'environnement OBLIGATOIRES (sauf password)
 const requiredEnv = ["DB_HOST", "DB_USER", "DB_NAME"] as const;
 

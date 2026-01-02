@@ -1,4 +1,5 @@
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import type {JwtPayload} from "jsonwebtoken";
 
 // Types des payloads JWT
 type AccessPayload = { sub: string; email?: string };  // Token court (15min)
