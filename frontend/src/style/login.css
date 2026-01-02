@@ -1,4 +1,4 @@
-/* Styles de base : mobile par défaut */
+
 body {
     margin: 0;
     padding: 0;
@@ -14,22 +14,24 @@ body {
 }
 
 #sctLogin > div {
-    width: 90%; /* Largeur quasi-totale sur mobile */
-    height: 70%; /* Plus de hauteur pour petits écrans */
+    width: 90%;
+    height: 70%; 
     padding: 20px;
     border-radius: 5px;
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px; /* Moins d'espace vertical */
+    gap: 15px; 
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    justify-content: center;
 }
+
 
 #ctnLoginGen form {
     display: flex;
     flex-direction: column;
-    width: 100%; /* Formulaire pleine largeur sur mobile */
+    width: 100%; 
     gap: 15px;
     justify-content: center;
 }
@@ -41,7 +43,7 @@ body {
     font-weight: 600;
     border-style: none;
     border-radius: 40px;
-    padding: 12px; /* Padding un peu plus généreux */
+    padding: 12px; 
     width: 100%;
     cursor: pointer;
 }
@@ -84,7 +86,7 @@ body {
     color: #333;
 }
 
-/* Tablette : 768px à 1023px */
+
 @media (min-width: 768px) and (max-width: 1023px) {
     #sctLogin > div {
         width: 60%;
@@ -102,7 +104,7 @@ body {
     }
 }
 
-/* Desktop : à partir de 1024px (styles originaux conservés) */
+
 @media (min-width: 1024px) {
     #sctLogin > div {
         width: 40%;
