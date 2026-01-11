@@ -20,6 +20,8 @@ L’objectif de ce projet est de poser une base saine et réaliste :
 - Protection brute-force (rate limit + verrouillage temporaire)
 - Protection CSRF pour les requêtes sensibles
 - Journalisation des tentatives de connexion
+- CI git
+- Test back + front
 
 
 ## Lancer le projet
